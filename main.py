@@ -6,6 +6,10 @@ pygame.mixer.pre_init(44100, 16, 2, 2048)
 pygame.mixer.init()
 pygame.init()
 
+class dummy_sound_object:
+	def play(self):
+		pass
+
 def player(x, y, colour, index):
 	#player_rect = pygame.draw.rect(screen, blue, (x, y, 20, 20))
 	if not (x, y, index) in cache:
@@ -442,19 +446,34 @@ green = 0, 255, 0
 blue = 0, 0, 255
 bg_colour = white
 
+# get opts
+
+args = sys.argv
+if "-mute" in args:
+	shot_snd = dummy_sound_object()
+if "-nomusic" in args or "-mute" in args:
+	pass
+else:
+	pygame.mixer.music.load("music.ogg")
+	pygame.mixer.music.set_volume(0.5)
+	pygame.mixer.music.play(-1)
+	shot_snd = pygame.mixer.Sound("shot.ogg")
+
+pygame.mixer.music.set_volume(0)
+
 pygame.display.set_caption("Square Shooting Simulator 2016")
 
-shot_snd = pygame.mixer.Sound("shot.ogg")
-pygame.mixer.music.load("music.ogg")
-pygame.mixer.music.set_volume(0.5)
-pygame.mixer.music.play(-1)
+#shot_snd = pygame.mixer.Sound("shot.ogg")
 
-#flags = HWSURFACE | DOUBLEBUF | FULLSCREEN #| DOUBLEBUF
-flags = 0
+if "-fullscreen" in args:
+	flags = HWSURFACE | DOUBLEBUF | FULLSCREEN #| DOUBLEBUF
+else:
+	flags = HWSURFACE | DOUBLEBUF
+
 bpp = 16
 infoObject = pygame.display.Info()
-#RESOLUTION = (infoObject.current_w, infoObject.current_h) 
-RESOLUTION = (800, 600)
+RESOLUTION = (infoObject.current_w, infoObject.current_h) 
+#RESOLUTION = (800, 600)
 screen = pygame.display.set_mode((RESOLUTION[0], RESOLUTION[1]), flags, bpp)
 screen.fill(bg_colour)
 
@@ -465,7 +484,7 @@ big_alert_font = pygame.font.SysFont("monospace", 80)
 
 test_button = Button((500, 0, 100, 50), red, text="button", font=status_font)
 
-p_width	= 20
+p_width	= 20 # p is short for player
 p_height = 20
 enemy_x = 40
 enemy_y = 40
@@ -478,6 +497,6 @@ bullet_speed = 15
 powerup_w = 10
 powerup_h = 10
 
-cache = {} # used for storing frequently used game objects 
+cache = {} # used for storing frequently used game objects which improves performance
 
 game_loop()
