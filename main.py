@@ -459,7 +459,7 @@ else:
 	pygame.mixer.music.play(-1)
 	shot_snd = pygame.mixer.Sound("shot.ogg")
 
-pygame.mixer.music.set_volume(0)
+pygame.mixer.music.set_volume(0.1)
 
 pygame.display.set_caption("Square Shooting Simulator 2016")
 
