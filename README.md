@@ -14,5 +14,5 @@ A top-down 2D sprite based game. The objective is to eliminate all of the enemie
 # Launch Options
 - When "-fullscreen" is passed as an argument via the terminal, the game will launch in fullscreen mode.
 
-# Dependancies
+# Dependencies
 - PyGame
