@@ -2,6 +2,8 @@
 
 A top-down 2D sprite based game. The objective is to eliminate all of the enemies and gain as high a score as possible.
 
+![Demo](https://github.com/Nytra/Python3_Shooting_Game/blob/master/shooting_game_gif.gif)
+
 # Controls
 - W - Up
 - A - Left
